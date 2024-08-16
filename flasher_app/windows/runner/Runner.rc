@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "flasher" "\0"
+            VALUE "FileDescription", "flasher_app" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "flasher" "\0"
+            VALUE "InternalName", "flasher_app" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "flasher.exe" "\0"
-            VALUE "ProductName", "flasher" "\0"
+            VALUE "OriginalFilename", "flasher_app.exe" "\0"
+            VALUE "ProductName", "flasher_app" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
@@ -119,4 +119,3 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
-1 RT_MANIFEST "app.manifest"

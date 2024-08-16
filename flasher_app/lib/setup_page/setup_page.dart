@@ -15,9 +15,12 @@ class _SetupPageState extends State<SetupPage> {
   void initState() {
     syncCommand(
       [
-        //'powershell Start-Process diskpart -Verb RunAs',
-        'diskpart list disk',
+        '''
+powershell -Command "& {if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {Write-Host 'Admin'} else {Write-Host 'Not Admin'}}"
+''',
+        'echo hi',
 
+        'diskpart list disk'
       ]
     );
     super.initState();
