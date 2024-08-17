@@ -1,4 +1,4 @@
-# flasher
+# flasher_app
 
 A new Flutter project.
 

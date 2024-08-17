@@ -1,6 +1,6 @@
 {
-    "name": "flasher",
-    "short_name": "flasher",
+    "name": "flasher_app",
+    "short_name": "flasher_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

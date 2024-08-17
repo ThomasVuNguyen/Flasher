@@ -41,7 +41,3 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-from_rpi/
-flasher_app/build/
-flasher_app_archive/
-os/
