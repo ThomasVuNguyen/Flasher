@@ -1,5 +1,5 @@
 import 'package:flasher_app/flash_os/flash.dart';
-import 'package:flasher_app/generate_config/usb_picker.dart';
+import 'package:flasher_app/generate_config/setup_config.dart';
 import 'package:flutter/material.dart';
 
 void main() {

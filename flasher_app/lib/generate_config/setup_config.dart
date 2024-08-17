@@ -1,17 +1,21 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:quick_usb/quick_usb.dart';
 
-class UsbPicker extends StatefulWidget {
-  const UsbPicker({super.key});
+class setup_config extends StatefulWidget {
+  const setup_config({super.key});
 
   @override
-  State<UsbPicker> createState() => _UsbPickerState();
+  State<setup_config> createState() => _setup_configState();
 }
 
-class _UsbPickerState extends State<UsbPicker> {
-
+class _setup_configState extends State<setup_config> {
+  TextEditingController wifi_name_controller = TextEditingController();
+  TextEditingController wifi_pw_controller = TextEditingController();
+  TextEditingController hotspot_name_controller = TextEditingController();
+  TextEditingController hotspot_pw_controller = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -59,7 +63,7 @@ class _UsbPickerState extends State<UsbPicker> {
     return drivesWithConfig;
   }
 
-  Future<void> createConfigFile(String driveLetter) async {
+  Future<void> createConfigFile(String driveLetter, String wifi_name, String wifi_pw, String hotspot_name, String hotspot_pw) async {
     if (!Platform.isWindows) {
       throw UnsupportedError('This function is only supported on Windows.');
     }
@@ -93,14 +97,14 @@ update_config=1
 country=GB
 
 network={
-    ssid="tung"
-    psk="tungtung"
+    ssid="$hotspot_name"
+    psk="$hotspot_pw"
     key_mgmt=WPA-PSK
 }
 
 network={
-    ssid="MiraGalaxy"
-    psk="24LIVINGMIRA3330!"
+    ssid="$wifi_name"
+    psk="$wifi_pw"
     key_mgmt=WPA-PSK
 }''',
       'message': 'adding wpa supplicant file'
@@ -137,12 +141,50 @@ network={
       child: Scaffold(
         body: Center(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text('USB Picker'),
+              Gap(30),
+              TextField(
+                controller: wifi_name_controller,
+                decoration: InputDecoration(
+                  hintText: 'wifi name'
+                ),
+              ),
+              Gap(30),
+              TextField(
+                controller: wifi_pw_controller,
+                decoration: InputDecoration(
+                    hintText: 'wifi pw'
+                ),
+              ),
+              Gap(30),
+              TextField(
+                controller: hotspot_name_controller,
+                decoration: InputDecoration(
+                    hintText: 'hotspot name'
+                ),
+              ),
+              Gap(30),
+              TextField(
+                controller: hotspot_pw_controller,
+                decoration: InputDecoration(
+                    hintText: 'hotspot pw'
+                ),
+              ),
+              Gap(30),
               IconButton(onPressed: () async {
                 try {
                   List<String> drive_letter = await findDrivesWithConfigFile();
-                  createConfigFile(drive_letter[0]);
+                  createConfigFile(
+                      drive_letter[0],
+                    wifi_name_controller.text,
+                    wifi_pw_controller.text,
+                    hotspot_name_controller.text,
+                    hotspot_pw_controller.text
+                  );
                 } catch (e) {
                   print('Error: $e');
                 }
