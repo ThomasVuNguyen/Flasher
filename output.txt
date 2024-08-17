@@ -1,0 +1,2 @@
+from_rpi/
+flasher_app/build/

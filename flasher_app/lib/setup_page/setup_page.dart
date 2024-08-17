@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:process_run/cmd_run.dart';
 import 'package:process_run/process_run.dart';
 
@@ -14,9 +16,7 @@ class SetupPage extends StatefulWidget {
 class _SetupPageState extends State<SetupPage> {
   @override
   void initState() {
-    syncCommand_v2([
-      'echo list disk | diskpart'
-    ]);
+    runExecutable();
     super.initState();
   }
 
@@ -96,6 +96,27 @@ class _SetupPageState extends State<SetupPage> {
     // > ...
     await runCmd(PubCmd(['global', 'list']), verbose: true);
   }
+
+  Future<void> runExecutable() async {
+    // Get the temporary directory
+    final directory = await getTemporaryDirectory();
+    print(directory);
+    final executablePath = '${directory.path}/usbimager.exe';
+
+    // Copy the executable from assets to the temporary directory
+    final byteData = await rootBundle.load('assets/usbimager.exe');
+    final buffer = byteData.buffer;
+    await File(executablePath).writeAsBytes(
+        buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+
+    // Run the executable
+    final result = await Process.run(executablePath, ['-a']);
+
+    print('Exit code: ${result.exitCode}');
+    print('stdout: ${result.stdout}');
+    print('stderr: ${result.stderr}');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
